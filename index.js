@@ -26,11 +26,10 @@ io.on('connection', (socket) => {
 
     socket.on("disconnect", () => {
         console.log("A user disconnected", socket.id);
-        // socket.broadcast.emit("user-disconnected", socket.id);
     });
 
     socket.on("call-user", (data) => {
-        console.log("recieved a call-user:", socket.id, "to :", data.to);
+        console.log("received a call-user:", socket.id, "to :", data.to);
         io.to(data.to).emit("call-mode", {
             from: socket.id,
             signalData: data.signalData,
@@ -38,6 +37,7 @@ io.on('connection', (socket) => {
     });
 
     socket.on("call-answer", (data) => {
+        console.log("received a answer-user:", socket.id, "to :", data.to);
         io.to(data.to).emit("answer-mode", {
             // from: socket.id,
             signalData: data.signalData,
